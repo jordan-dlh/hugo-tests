@@ -1,0 +1,25 @@
+{{ define "main" }}
+
+{{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
+
+{{ if .Content }}<article>{{ .Content }}</article>{{ end }}
+
+{{ if .Pages }}
+	<ul>
+	{{ range .Pages }}
+	<li>
+		<a href="{{ .RelPermalink }}">{{ .Title }}</a>
+		Tags:
+		{{ range (.GetTerms "tags") }}
+			<a href="{{ .Permalink }}">{{ .LinkTitle }}</a>{{with .Params.role}}(role: {{.}}){{end}}
+		{{ end }}
+		Categories:
+		{{ range (.GetTerms "categories") }}
+			<a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+		{{ end }}
+	</li>
+	{{ end }}
+	</ul>
+{{ end }}
+
+{{ end }}

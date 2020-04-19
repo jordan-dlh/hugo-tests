@@ -1,0 +1,42 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ .Content }}
+
+<h2>New way (.GetTerms)</h2>
+    <h3>Categories</h3>
+    <ul>
+        {{ range (.GetTerms "tags") }}
+            <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+       {{ end }}
+    </ul>
+    <h3>Categories</h3>
+    <ul>
+        {{ range (.GetTerms "categories") }}
+            <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+       {{ end }}
+    </ul>
+
+<h2>Old way</h2>
+    <h3>Tags:</h3>
+    {{ $taxo := "tags" }} <!-- Use the plural form here -->
+    {{ with .Param $taxo }}
+    <ul>
+        {{ range $index, $category := . }}
+            {{ with $.Site.GetPage (printf "/%s/%s" $taxo $category) -}}
+	    <li><a href="{{ .Permalink }}">{{ $category }}</a></lI>
+            {{- end -}}
+        {{- end -}}
+    </ul>
+    {{ end }}
+    <h3>Categories</h3>
+    {{ $taxo := "categories" }} <!-- Use the plural form here -->
+    {{ with .Param $taxo }}
+    <ul>
+        {{ range $index, $category := . }}
+            {{ with $.Site.GetPage (printf "/%s/%s" $taxo $category) -}}
+	    <li><a href="{{ .Permalink }}">{{ $category }}</a></lI>
+            {{- end -}}
+        {{- end -}}
+    </ul>
+    {{ end }}
+{{ end }}

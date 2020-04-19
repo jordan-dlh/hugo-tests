@@ -7,11 +7,13 @@
 {{ if .Pages }}
 	<ul>
 	{{ range .Pages }}
+	{{ $page:=. }}
 	<li>
 		<a href="{{ .RelPermalink }}">{{ .Title }}</a>
 		Tags:
 		{{ range (.GetTerms "tags") }}
-			<a href="{{ .Permalink }}">{{ .LinkTitle }}</a>{{with .Params.role}}(role: {{.}}){{end}}
+			<a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+			{{ if $page.Params.tagsrole }}{{$mmap := index $page.Params.tagsrole .Title }}{{ $mmap.role }}{{ end }}
 		{{ end }}
 		Categories:
 		{{ range (.GetTerms "categories") }}

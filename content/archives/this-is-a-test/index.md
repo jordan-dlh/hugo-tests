@@ -3,9 +3,10 @@ title: Hello World
 date: 2020-04-18
 type: archive
 tags:
-  - name: Scott
-    params:
-      role: author
+  - Scott
+tagsrole:
+  Scott:
+    role: author
 categories:
   - test
   - whatever
